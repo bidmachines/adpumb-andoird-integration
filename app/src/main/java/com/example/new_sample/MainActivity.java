@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Adpump.register(this,true);
+        Adpump.register(this,BuildConfig.DEBUG);
         setContentView(R.layout.activity_main);
         viewSetup();
 
