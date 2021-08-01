@@ -7,11 +7,16 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.adpump.ads.display.AdCompletion;
 import com.adpump.ads.display.DisplayManager;
 import com.adpump.ads.display.InterstitialPlacement;
 import com.adpump.ads.display.InterstitialPlacementBuilder;
-import com.adpump.lifecycle.Adpumb;
+import com.adpump.ads.display.LoaderSettings;
+import com.adpump.ads.error.PlacementDisplayStatus;
+import com.adpump.lifecycle.Adpump;
+
 
 public class MainActivity extends AppCompatActivity {
     private Button b1;
@@ -49,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Adpumb.register(this,true);
+        Adpump.register(this,true);
         setContentView(R.layout.activity_main);
         viewSetup();
 
@@ -210,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
         b_multi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAd();
+                adForMultiplicationWithCustomLoader();
                 if (t1.getText().length() > 0) {
                     ACTION = MULTIPLICATION;
                     operation();
@@ -229,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
         b_divide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                adForDivisionWithAdCompletionHandler();
                 if (t1.getText().length() > 0) {
                     ACTION = DIVISION;
                     operation();
@@ -405,14 +411,42 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void showAd(){
+    private void adForDivisionWithAdCompletionHandler(){
+        InterstitialPlacement placement = new InterstitialPlacementBuilder()
+                .name("division")
+                .frequencyCapInSeconds(0)
+                .showLoaderTillAdIsReady(true)
+                .loaderTimeOutInSeconds(10000)
+                .onAdCompletion(new AdCompletion() {
+                    @Override
+                    public void onAdCompletion(boolean isSuccess, PlacementDisplayStatus status) {
+                        if(isSuccess){
+                            Toast.makeText(MainActivity.this, "Thank you for watch the ad", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(MainActivity.this, "Why you didnt watch the ad?", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }).build();
+        DisplayManager.getInstance().showAd(placement);
+    }
+    private void adForMultiplicationWithCustomLoader(){
+        LoaderSettings loaderSettings = new LoaderSettings();
+        loaderSettings.setLogoResID(R.drawable.arithmatic_button);
+        loaderSettings.setMessageStyle(R.color.colorAccent, R.color.colorPrimary);
+
         InterstitialPlacement buttonPlacement = new InterstitialPlacementBuilder()
                 .name("button_ad")
+                .loaderUISetting(loaderSettings)
                 .showLoaderTillAdIsReady(true)
-                .maxWaitTime(10000)
+                .loaderTimeOutInSeconds(10000)
+                .frequencyCapInSeconds(0)
                 .build();
         DisplayManager.getInstance().showAd(buttonPlacement);
     }
+
+
+
+
     // Make text small if too many digits.
     private void exceedLength() {
         if (t1.getText().toString().length() > 10) {
