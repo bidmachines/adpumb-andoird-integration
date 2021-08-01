@@ -19,6 +19,12 @@ import com.adpump.lifecycle.Adpump;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private InterstitialPlacement addition = new InterstitialPlacementBuilder()
+            .name("addition")
+            .showLoaderTillAdIsReady(true)
+            .frequencyCapInSeconds(1)
+            .build();
     private Button b1;
     private Button b2;
     private Button b3;
@@ -177,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
         b_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DisplayManager.getInstance().showAd(addition);
                 if (t1.getText().length() > 0) {
                     ACTION = ADDITION;
                     operation();
@@ -435,11 +442,11 @@ public class MainActivity extends AppCompatActivity {
         loaderSettings.setMessageStyle(R.color.colorAccent, R.color.colorPrimary);
 
         InterstitialPlacement buttonPlacement = new InterstitialPlacementBuilder()
-                .name("button_ad")
+                .name("multiplication")  // placement name is considered as id.
                 .loaderUISetting(loaderSettings)
-                .showLoaderTillAdIsReady(true)
-                .loaderTimeOutInSeconds(10000)
-                .frequencyCapInSeconds(0)
+                .showLoaderTillAdIsReady(true) //this will show loader anima
+                .loaderTimeOutInSeconds(10000) //after time out, the loader will be hidden and onAdCompletion will get called.
+                .frequencyCapInSeconds(10) // N calls within 10 seconds will endup showing only one ad for the placment with name 'multiplication'
                 .build();
         DisplayManager.getInstance().showAd(buttonPlacement);
     }
