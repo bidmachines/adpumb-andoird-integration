@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2050232722158593~7684616038" />
         <activity android:name=".MainActivity"><!-- android:configChanges="orientation" android:screenOrientation="portrait"-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

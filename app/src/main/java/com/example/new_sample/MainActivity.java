@@ -8,6 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.adpump.ads.display.DisplayManager;
+import com.adpump.ads.display.InterstitialPlacement;
+import com.adpump.ads.display.InterstitialPlacementBuilder;
+import com.adpump.lifecycle.Adpumb;
+
 public class MainActivity extends AppCompatActivity {
     private Button b1;
     private Button b2;
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Adpumb.register(this,true);
         setContentView(R.layout.activity_main);
         viewSetup();
 
@@ -197,12 +203,14 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     t2.setText("Error");
                 }
+
             }
         });
 
         b_multi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showAd();
                 if (t1.getText().length() > 0) {
                     ACTION = MULTIPLICATION;
                     operation();
@@ -397,6 +405,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void showAd(){
+        InterstitialPlacement buttonPlacement = new InterstitialPlacementBuilder()
+                .name("button_ad")
+                .showLoaderTillAdIsReady(true)
+                .maxWaitTime(10000)
+                .build();
+        DisplayManager.getInstance().showAd(buttonPlacement);
+    }
     // Make text small if too many digits.
     private void exceedLength() {
         if (t1.getText().toString().length() > 10) {
