@@ -10,7 +10,7 @@ Please add the following to you build.gradle file of your app
 ```gradle
 repositories {
     maven {
-        url 'http://68.183.15.160:8081/nexus/content/repositories/adpump'
+        url 'https://maven.adpumb.com/nexus/content/repositories/adpump'
     }
 }
 dependencies {
