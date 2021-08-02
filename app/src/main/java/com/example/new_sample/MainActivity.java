@@ -9,13 +9,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.adpump.ads.display.AdCompletion;
-import com.adpump.ads.display.DisplayManager;
-import com.adpump.ads.display.InterstitialPlacement;
-import com.adpump.ads.display.InterstitialPlacementBuilder;
-import com.adpump.ads.display.LoaderSettings;
-import com.adpump.ads.error.PlacementDisplayStatus;
-import com.adpump.lifecycle.Adpump;
+import com.adpumb.ads.display.AdCompletion;
+import com.adpumb.ads.display.DisplayManager;
+import com.adpumb.ads.display.InterstitialPlacement;
+import com.adpumb.ads.display.InterstitialPlacementBuilder;
+import com.adpumb.ads.display.LoaderSettings;
+import com.adpumb.ads.error.PlacementDisplayStatus;
+import com.adpumb.lifecycle.Adpumb;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Adpump.register(this,BuildConfig.DEBUG);
+        Adpumb.register(this,BuildConfig.DEBUG);
         setContentView(R.layout.activity_main);
         viewSetup();
 
