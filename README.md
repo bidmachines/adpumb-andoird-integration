@@ -2,9 +2,9 @@
 ## Prerequisite ##
 You need to register with us before starting the integration. You can drop a mail to asil@rynvpn.com
 ## Steps ##
-1) Add your admob publisher id to the android-manifest.xml of your app: Adpump doesn't use your admob adunits, however adpump uses the underlying admob APIs for which publisher id is mandatory. Even those admob accounts which are having ad limitation will work fine with Adpump.
+1) <h4>Add your admob publisher id to the android-manifest.xml of your app.</h4>  Adpump doesn't use your admob adunits, however adpump uses the underlying admob APIs for which publisher id is mandatory. Even those admob accounts which are having ad limitation will work fine with Adpump.
 
-2) Add library dependency: Adpump is currently not hosted in maven central, hence you need to add the repository details to your gradle script to get the Adpump dependency resolved. 
+2) <h4>Add library dependency</h4> Adpump is currently not hosted in maven central, hence you need to add the repository details to your gradle script to get the Adpump dependency resolved. 
 
 Please add the following to you build.gradle file of your app
 ```gradle
@@ -18,7 +18,7 @@ dependencies {
     *********************
 
 ```
-3) Register Adpump library: You should register Adpump at the entry point of your application. Adpump takes some time to load the advertisements, it's better to register as soon as possible.
+3) <h4>Register Adpump library</h4> You should register Adpump at the entry point of your application. Adpump takes some time to load the advertisements, it's better to register as soon as possible.
 ```java
 @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ dependencies {
         .........................
         }
 ```
-4) Create placement: Adpump is designed on the concept of placement rather than adunit. A placement is a predefined action sequence which ends up in showing an Ad. Consider the example of a calculator, where a user presses the addition (+) button and an ad is shown. Here we can consider the addition button click as a placement.
+4) <h4>Create placement</h4> Adpump is designed on the concept of placement rather than adunit. A placement is a predefined action sequence which ends up in showing an Ad. Consider the example of a calculator, where a user presses the addition (+) button and an ad is shown. Here we can consider the addition button click as a placement.
 ```java
 private void onAdditionButtonClick() {
    InterstitialPlacement addition = new InterstitialPlacementBuilder()
@@ -52,7 +52,8 @@ public void onResume(){
   DisplayManager.getInstance().showAd(addition);
 }
 ```
-5) Callbacks: You can register callbacks to the placement
+5) Callbacks: You can register callbacks to the placement.
+    
 ```java
 InterstitialPlacement placement = new InterstitialPlacementBuilder()
                 .name("division")
@@ -71,7 +72,8 @@ InterstitialPlacement placement = new InterstitialPlacementBuilder()
                 }).build();
         DisplayManager.getInstance().showAd(placement);
 ```
-6) Customising loader animation: You can customize the loader using the loader settings for each placement
+6) <h4>Customising loader animation</h4>You can customize the loader using the loader settings for each placement.
+    
 ```java
         LoaderSettings loaderSettings = new LoaderSettings();
         loaderSettings.setLogoResID(R.drawable.arithmatic_button);
